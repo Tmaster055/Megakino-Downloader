@@ -8,14 +8,22 @@ from search import search_for_movie
 
 def get_html_from_search():
     url = search_for_movie()
-    html_content = requests.get(url, timeout=15)
-    return html_content
+    response = requests.get(url, timeout=15)
+    soup = BeautifulSoup(response.content, 'html.parser')
+    return soup
 
-def get_episodes(html_content):
-    soup = BeautifulSoup(html_content, 'html.parser')
+def get_episodes(soup):
     select_tags = soup.find_all('select', class_='mr-select')
     episode_links = [select.find('option')['value'] for select in select_tags]
-    return episode_links
+    if episode_links:
+        return episode_links
+
+    voe_links = []
+    for iframe in soup.find_all('iframe', attrs={'data-src': True}):
+        data_src = iframe['data-src']
+        if "voe.sx" in data_src:
+            voe_links.append(data_src)
+            return voe_links
 
 def clear() -> None:
     if platform.system() == "Windows":
