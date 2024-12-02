@@ -1,5 +1,9 @@
 import npyscreen
-from common import get_html_from_search, get_episodes
+from common import get_html_from_search, get_episodes, clear
+from download import download
+from syncplay import syncplay
+from watch import watch
+from voe import voe_get_direct_link
 
 HTML_CONTENT = get_html_from_search()
 Episodes = get_episodes(HTML_CONTENT)
@@ -14,13 +18,23 @@ class MegakinoForm(npyscreen.ActionForm):
 
     def on_ok(self):
         selected_action = self.action.get_selected_objects()
-        selected_episoden = self.episodes.get_selected_objects()
+        selected_episodes = self.episodes.get_selected_objects()
+        episode_list = list(selected_episodes)
+        selected_action = selected_action[0]
+        clear()
 
-        if selected_action:
-            print(f"Ausgewählte Aktion: {selected_action[0]}")
-        if selected_episoden:
-            episoden_liste = list(selected_episoden)
-            print(f"Ausgewählte Episoden (Liste): {episoden_liste}")
+        direct_links = []
+        for episode in episode_list:
+            link = voe_get_direct_link(episode)
+            direct_links.append(link)
+
+
+        if selected_action == "Watch":
+            watch(direct_links)
+        elif selected_action == "Download":
+            download(direct_links)
+        elif selected_action == "Syncplay":
+            syncplay(direct_links)
 
         self.parentApp.switchForm(None)
 
@@ -29,7 +43,7 @@ class MegakinoForm(npyscreen.ActionForm):
 
 class MegakinoApp(npyscreen.NPSAppManaged):
     def onStart(self):
-        self.form = self.addForm("MAIN", MegakinoForm, name="Aktionen und Episoden auswählen")
+        self.form = self.addForm("MAIN", MegakinoForm, name="Megakino-Downloader")
 
 
 app = MegakinoApp()

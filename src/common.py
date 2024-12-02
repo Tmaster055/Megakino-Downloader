@@ -1,5 +1,8 @@
 import os
 import platform
+import shutil
+import subprocess
+
 import requests
 
 from bs4 import BeautifulSoup
@@ -30,3 +33,23 @@ def clear() -> None:
         os.system("cls")
     else:
         os.system("clear")
+
+
+def print_windows_cmd(msg):
+    command = f"""cmd /c echo {msg.replace('"', "'")} """
+    subprocess.run(command)
+
+
+def find_program(program_name: str, fallback_path: str) -> str:
+    program_path = shutil.which(program_name)
+
+    if program_path:
+        return program_path
+
+    if platform.system() == "Windows" and program_name.lower() == "syncplayconsole":
+        fallback_program_path = os.path.join(fallback_path, "syncplay")
+    else:
+        fallback_program_path = os.path.join(fallback_path, program_name.lower())
+
+    #if os.path.isfile(fallback_program_path):
+    return fallback_program_path
