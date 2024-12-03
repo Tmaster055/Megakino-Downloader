@@ -24,36 +24,39 @@ def search_for_movie():
             titles_links.append((title.text.strip(), link['href']))
 
     if not titles_links:
-        print(f"No results found for '{keyword}'.")
-        return None
+        msg = f"No results found for '{keyword}'."
+        raise ValueError(msg)
 
     def curses_menu(stdscr, titles_links):
         curses.curs_set(0)
         current_row = 0
 
         while True:
-            stdscr.clear()
+            try:
+                stdscr.clear()
 
-            stdscr.addstr(0, 0, "Top 20 Results:", curses.A_BOLD)
+                stdscr.addstr(0, 0, "Top 20 Results:", curses.A_BOLD)
 
-            for idx, (title, _) in enumerate(titles_links):
-                if idx == current_row:
-                    stdscr.addstr(idx + 2, 0, title, curses.color_pair(1))
-                else:
-                    stdscr.addstr(idx + 2, 0, title)
+                for idx, (title, _) in enumerate(titles_links):
+                    if idx == current_row:
+                        stdscr.addstr(idx + 2, 0, title.encode("utf-8"), curses.color_pair(1))
+                    else:
+                        stdscr.addstr(idx + 2, 0, title.encode("utf-8"))
 
-            stdscr.refresh()
+                stdscr.refresh()
 
-            key = stdscr.getch()
+                key = stdscr.getch()
 
-            if key == curses.KEY_UP and current_row > 0:
-                current_row -= 1
-            elif key == curses.KEY_DOWN and current_row < len(titles_links) - 1:
-                current_row += 1
-            elif key == curses.KEY_ENTER or key in [10, 13]:
-                return titles_links[current_row][1]
-            elif key == 27:
-                return None
+                if key == curses.KEY_UP and current_row > 0:
+                    current_row -= 1
+                elif key == curses.KEY_DOWN and current_row < len(titles_links) - 1:
+                    current_row += 1
+                elif key == curses.KEY_ENTER or key in [10, 13]:
+                    return titles_links[current_row][1]
+                elif key == 27:
+                    return None
+            except Exception:
+                raise ValueError("Please increase terminal size!")
 
     def main(stdscr):
         curses.start_color()
