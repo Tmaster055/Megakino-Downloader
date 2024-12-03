@@ -1,9 +1,10 @@
 import subprocess
 
 
-def watch(direct_links):
+def watch(direct_links, titles):
+    counter = 0
     for link in direct_links:
-        title = "File1"
+        title = titles[counter].split('(')[0].strip()
         command = [
                 "mpv",
                 link,
@@ -15,4 +16,5 @@ def watch(direct_links):
                 "--video-sync=display-resample",
                 f"--force-media-title={title}"
             ]
+        counter += 1
         subprocess.run(command)

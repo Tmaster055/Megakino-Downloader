@@ -34,11 +34,11 @@ class MegakinoForm(npyscreen.ActionForm):
 
 
         if selected_action == "Watch":
-            watch(direct_links)
+            watch(direct_links, titles_link_list)
         elif selected_action == "Download":
-            download(direct_links)
+            download(direct_links, titles_link_list)
         elif selected_action == "Syncplay":
-            syncplay(direct_links)
+            syncplay(direct_links, titles_link_list)
 
         self.parentApp.switchForm(None)
 

@@ -3,13 +3,13 @@ import platform
 import subprocess
 
 
-def syncplay(direct_links):
+def syncplay(direct_links, titles):
+    counter = 0
     for link in direct_links:
+        title = titles[counter].split('(')[0].strip()
         executable = "SyncplayConsole" if platform.system() == "Windows" else "syncplay"
         syncplay_username = getpass.getuser()
         syncplay_hostname = "syncplay.pl:8997"
-        room_name = "MEGAKINO-8997"
-        title = "File1"
 
         command = [
             executable,
@@ -17,7 +17,7 @@ def syncplay(direct_links):
             "--no-store",
             "--host", syncplay_hostname,
             "--name", syncplay_username,
-            "--room", room_name,
+            "--room", title,
             "--player", "mpv",
             link,
             "--",
@@ -27,4 +27,5 @@ def syncplay(direct_links):
             "--video-sync=display-resample",
             f"--force-media-title={title}"
         ]
+        counter += 1
         subprocess.run(command)
