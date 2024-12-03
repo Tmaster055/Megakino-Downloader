@@ -6,8 +6,6 @@ import re
 from base64 import b64decode
 from bs4 import BeautifulSoup
 
-from aniworld import globals as aniworld_globals
-
 REDIRECT_PATTERN = re.compile(r"window\.location\.href\s*=\s*'(https://[^/]+/e/\w+)';")
 EXTRACT_VEO_HLS_PATTERN = re.compile(r"'hls': '(?P<hls>.*)'")
 
@@ -24,8 +22,7 @@ def voe_get_direct_link(link):
     try:
         with urlopen(
             Request(
-                redirect_url,
-                headers={'User-Agent': aniworld_globals.DEFAULT_USER_AGENT}
+                redirect_url
             ),
             timeout=10
         ) as response:
