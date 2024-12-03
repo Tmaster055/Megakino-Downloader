@@ -34,7 +34,7 @@ class MegakinoForm(npyscreen.ActionForm):
 
 
         if selected_action == "Watch":
-            pass
+            watch(direct_links)
         elif selected_action == "Download":
             download(direct_links)
         elif selected_action == "Syncplay":

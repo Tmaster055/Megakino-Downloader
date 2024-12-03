@@ -18,6 +18,7 @@ def get_html_from_search():
     soup = BeautifulSoup(response.content, 'html.parser')
     return soup
 
+
 def get_episodes(soup):
     select_tags = soup.find_all('select', class_='mr-select')
     episode_links = [select.find('option')['value'] for select in select_tags]
@@ -63,18 +64,3 @@ def clear() -> None:
 def print_windows_cmd(msg):
     command = f"""cmd /c echo {msg.replace('"', "'")} """
     subprocess.run(command)
-
-
-def find_program(program_name: str, fallback_path: str) -> str:
-    program_path = shutil.which(program_name)
-
-    if program_path:
-        return program_path
-
-    if platform.system() == "Windows" and program_name.lower() == "syncplayconsole":
-        fallback_program_path = os.path.join(fallback_path, "syncplay")
-    else:
-        fallback_program_path = os.path.join(fallback_path, program_name.lower())
-
-    #if os.path.isfile(fallback_program_path):
-    return fallback_program_path
