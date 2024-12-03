@@ -50,7 +50,6 @@ def get_titles(voe_links):
             titles.append(og_title)
         else:
             titles.append("Title not found!")
-        print(titles)
     return titles
 
 
