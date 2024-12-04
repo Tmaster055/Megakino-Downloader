@@ -6,14 +6,15 @@ import re
 from base64 import b64decode
 from bs4 import BeautifulSoup
 
+from common import USER_AGENT
+
 REDIRECT_PATTERN = re.compile(r"window\.location\.href\s*=\s*'(https://[^/]+/e/\w+)';")
 EXTRACT_VEO_HLS_PATTERN = re.compile(r"'hls': '(?P<hls>.*)'")
 
 
 def voe_get_direct_link(link):
     response = requests.get(link, timeout=15, headers = {
-    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36"
-})
+    "User-Agent": USER_AGENT})
     soup = BeautifulSoup(response.content, 'html.parser')
     redirect_match = REDIRECT_PATTERN.search(str(soup.prettify))
     if not redirect_match:
