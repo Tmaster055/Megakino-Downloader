@@ -4,7 +4,7 @@ import subprocess
 def watch(direct_links, titles):
     counter = 0
     for link in direct_links:
-        title = titles[counter].split('(')[0].strip()
+        title = titles[counter]
         command = [
                 "mpv",
                 link,

@@ -6,7 +6,7 @@ import subprocess
 def syncplay(direct_links, titles):
     counter = 0
     for link in direct_links:
-        title = titles[counter].split('(')[0].strip()
+        title = titles[counter]
         executable = "SyncplayConsole" if platform.system() == "Windows" else "syncplay"
         syncplay_username = getpass.getuser()
         syncplay_hostname = "syncplay.pl:8997"

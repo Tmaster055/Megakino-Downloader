@@ -28,40 +28,9 @@ def get_megakino_episodes(soup):
         return List
 
 
-def get_voe_episodes(soup):
-    select_tags = soup.find_all('select', class_='mr-select')
-    episode_links = [select.find('option')['value'] for select in select_tags]
-    if episode_links:
-        return episode_links
-
-    voe_links = []
-    for iframe in soup.find_all('iframe', attrs={'data-src': True}):
-        data_src = iframe['data-src']
-        if "voe.sx" in data_src:
-            voe_links.append(data_src)
-            return voe_links
-
-
-def get_titles(voe_links):
-    titles = []
-    for link in voe_links:
-        soup = BeautifulSoup(requests.get(link).content, 'html.parser')
-        redirect_match = REDIRECT_PATTERN.search(str(soup.prettify))
-        redirect_url = redirect_match.group(1)
-        print(redirect_url)
-
-        response = requests.get(redirect_url)
-        response.raise_for_status()
-        soup = BeautifulSoup(response.text, 'html.parser')
-
-        og_title_tag = soup.find('meta', attrs={'name': 'og:title'})
-        og_title = og_title_tag['content']
-        if og_title:
-            titles.append(og_title)
-        else:
-            titles.append("Title not found!")
-    return titles
-
+def get_title(soup):
+    og_title = soup.find('meta', property='og:title')
+    return og_title['content']
 
 def clear() -> None:
     if platform.system() == "Windows":
