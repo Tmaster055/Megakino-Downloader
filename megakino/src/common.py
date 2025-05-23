@@ -7,7 +7,7 @@ import re
 import requests
 
 from bs4 import BeautifulSoup
-from search import search_for_movie
+from .search import search_for_movie
 
 REDIRECT_PATTERN = re.compile(r"window\.location\.href\s*=\s*'(https://[^/]+/e/\w+)';")
 

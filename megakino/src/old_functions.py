@@ -6,7 +6,7 @@ import re
 from base64 import b64decode
 from bs4 import BeautifulSoup
 
-from common import USER_AGENT
+from .common import USER_AGENT
 
 REDIRECT_PATTERN = re.compile(r"window\.location\.href\s*=\s*'(https://[^/]+/e/\w+)';")
 EXTRACT_VEO_HLS_PATTERN = re.compile(r"'hls': '(?P<hls>.*)'")

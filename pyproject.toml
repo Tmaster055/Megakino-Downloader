@@ -1,0 +1,29 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+[project]
+name = "megakino"
+version = "0.0.1"
+authors = [
+  { name="Tmaster055" },
+]
+description = "A Megakino Downloader!"
+readme = "README.md"
+requires-python = ">=3.8"
+dependencies = [
+    'yt-dlp',
+    'requests',
+    'bs4',
+    'windows-curses; platform_system == "Windows"'
+]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+
+[project.urls]
+Homepage = "https://github.com/Tmaster055/Megakino-Downloader"
+Issues = "https://github.com/Tmaster055/Megakino-Downloader/issues"
+[project.scripts]
+megakino = "megakino.src.menu:main"
