@@ -9,7 +9,7 @@ def download(direct_links, titles):
     for link in direct_links:
         title = titles[counter]
         output_file = os.path.join(args.path, title, f"{title}.mp4")
-        counter += 1
+        # counter += 1
         command = [
             "yt-dlp",
             "--fragment-retries", "infinite",

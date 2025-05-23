@@ -27,5 +27,5 @@ def syncplay(direct_links, titles):
             "--video-sync=display-resample",
             f"--force-media-title={title}"
         ]
-        counter += 1
+        # counter += 1
         subprocess.run(command)

@@ -1,9 +1,12 @@
 import npyscreen
-from .common import get_html_from_search, clear, get_megakino_episodes, get_title
+from .common import get_html_from_search, clear, get_megakino_episodes, get_title, get_voe_episodes
 from .download import download
 from .megakino import megakino_get_direct_link
+from .voe import voe_get_direct_link
 from .syncplay import syncplay
 from .watch import watch
+
+
 def main():
     HTML_CONTENT = get_html_from_search()
     Titles = [get_title(HTML_CONTENT)]
@@ -12,7 +15,7 @@ def main():
         def create(self):
             self.action = self.add(npyscreen.TitleSelectOne, name="Action:", max_height=6, values=["Watch", "Download", "Syncplay"], scroll_exit=True, value=1)
 
-            self.provider = self.add(npyscreen.TitleSelectOne, name="Provider:", max_height=5, values=["Megakino"], scroll_exit=True, value=0)
+            self.provider = self.add(npyscreen.TitleSelectOne, name="Provider:", max_height=5, values=["Megakino", "VOE"], scroll_exit=True, value=0)
 
             self.episodes = self.add(npyscreen.TitleMultiSelect, name="Choose Episodes:", values=Titles, scroll_exit=True)
 
@@ -30,12 +33,17 @@ def main():
             direct_links = []
             if selected_provider == "Megakino":
                 megakino_list = get_megakino_episodes(HTML_CONTENT)
-                if megakino_list is None:
-                    print("Sorry for that but this Movie has no megakino video (Only VOE)")
-                    quit()
-                for episode in megakino_list:
-                    link = megakino_get_direct_link(episode)
-                    direct_links.append(link)
+                if megakino_list:
+                    for episode in megakino_list:
+                        link = megakino_get_direct_link(episode)
+                        direct_links.append(link)
+
+            elif selected_provider == "VOE" or not direct_links:
+                voe_list = get_voe_episodes(HTML_CONTENT)
+                if voe_list:
+                    for episode in voe_list:
+                        link = voe_get_direct_link(episode)
+                        direct_links.append(link)
 
             if selected_action == "Watch":
                 watch(direct_links, titles_link_list)

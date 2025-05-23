@@ -28,6 +28,20 @@ def get_megakino_episodes(soup):
         return List
 
 
+def get_voe_episodes(soup):
+    select_tags = soup.find_all('select', class_='mr-select')
+    episode_links = [select.find('option')['value'] for select in select_tags]
+    if episode_links:
+        return episode_links
+
+    voe_links = []
+    for iframe in soup.find_all('iframe', attrs={'data-src': True}):
+        data_src = iframe['data-src']
+        if "voe.sx" in data_src:
+            voe_links.append(data_src)
+            return voe_links
+
+
 def get_title(soup):
     og_title = soup.find('meta', property='og:title')
     return og_title['content']
