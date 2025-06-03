@@ -1,10 +1,10 @@
 import npyscreen
 from .common import get_html_from_search, clear, get_megakino_episodes, get_title
-from .download import download
-from .megakino import megakino_get_direct_link
-from .voe import voe_get_direct_link
-from .syncplay import syncplay
-from .watch import watch
+from megakino.src.actions.download import download
+from megakino.src.extractors.megakino import megakino_get_direct_link
+from megakino.src.extractors.voe import voe_get_direct_link
+from megakino.src.actions.syncplay import syncplay
+from megakino.src.actions.watch import watch
 
 
 def main():

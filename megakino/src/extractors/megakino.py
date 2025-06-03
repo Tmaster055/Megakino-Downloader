@@ -1,7 +1,7 @@
 import re
 import requests
 
-from .common import USER_AGENT
+from megakino.src.common import USER_AGENT
 
 def megakino_get_direct_link(link):
     response = requests.get(link, timeout=15, headers={

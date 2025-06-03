@@ -1,7 +1,7 @@
 import os
 import subprocess
 
-from .parser import args
+from megakino.src.parser import args
 
 
 def download(direct_links, titles):

@@ -7,7 +7,7 @@ from urllib.error import HTTPError, URLError
 import requests
 from bs4 import BeautifulSoup
 
-from .common import USER_AGENT
+from megakino.src.common import USER_AGENT
 
 
 def shift_letters(input_str):
