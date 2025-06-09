@@ -1,6 +1,5 @@
 import os
 import platform
-import random
 import subprocess
 import re
 

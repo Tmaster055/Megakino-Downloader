@@ -3,7 +3,7 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 [project]
 name = "megakino"
-version = "0.6"
+version = "0.6.1"
 authors = [
   { name="Tmaster055" },
 ]

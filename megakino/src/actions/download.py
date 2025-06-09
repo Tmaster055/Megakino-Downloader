@@ -2,6 +2,7 @@ import os
 import subprocess
 
 from megakino.src.parser import args
+from megakino.src.common import USER_AGENT
 
 
 def download(direct_links, titles):
@@ -14,6 +15,7 @@ def download(direct_links, titles):
             "yt-dlp",
             "--fragment-retries", "infinite",
             "--concurrent-fragments", "4",
+            "--user-agent", USER_AGENT,
             "-o", output_file,
             "--quiet",
             "--no-warnings",
