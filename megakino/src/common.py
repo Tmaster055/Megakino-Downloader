@@ -14,7 +14,14 @@ REDIRECT_PATTERN = re.compile(r"window\.location\.href\s*=\s*'(https://[^/]+/e/\
 
 def get_html_from_search():
     url = search_for_movie()
-    response = requests.get(url, timeout=15)
+    session = requests.Session()
+    try:
+        session.get(f"https://megakino.ms/index.php?yg=token", timeout=15)
+        response = session.get(url, timeout=15)
+        response.raise_for_status()
+    except requests.RequestException as e:
+        print(f"Error: Unable to fetch the page. Details: {e}")
+        return None
     soup = BeautifulSoup(response.content, 'html.parser')
     return soup
 
