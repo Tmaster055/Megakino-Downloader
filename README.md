@@ -21,13 +21,14 @@ megakino --path "E:\Videos"
 ```
 
 ## Dependencies/Credits
-1. **[yt-dlp](https://pypi.org/project/yt-dlp/)** for downloading
-2. **[requests](https://pypi.org/project/requests/)** for fetching html pages
-3. **[bs4](https://pypi.org/project/beautifulsoup4/)** for searching in these pages
-4. **[fake_useragent](https://pypi.org/project/fake_useragent/)** for dynamic generated user-agents
-5. **[windows-curses](https://pypi.org/project/windows-curses/)** for the windows version of curses
-6. **[mpv](https://github.com/mpv-player/mpv.git)** for playing video content (Needs to be installed)
-7. **[syncplay](https://github.com/Syncplay/syncplay.git)** for syncing videos for friends (Needs to be installed)
+1. **[new-domain-check](https://github.com/Yezun-hikari/new-domain-check)** Big Thanks to Yezun for fetching the domain dynamically
+2. **[yt-dlp](https://pypi.org/project/yt-dlp/)** for downloading
+3. **[requests](https://pypi.org/project/requests/)** for fetching html pages
+4. **[bs4](https://pypi.org/project/beautifulsoup4/)** for searching in these pages
+5. **[fake_useragent](https://pypi.org/project/fake_useragent/)** for dynamic generated user-agents
+6. **[windows-curses](https://pypi.org/project/windows-curses/)** for the windows version of curses
+7. **[mpv](https://github.com/mpv-player/mpv.git)** for playing video content (Needs to be installed)
+8. **[syncplay](https://github.com/Syncplay/syncplay.git)** for syncing videos for friends (Needs to be installed)
 
 ## ⚠️ Disclaimer
 I provide this tool for educational and informational purposes only.
