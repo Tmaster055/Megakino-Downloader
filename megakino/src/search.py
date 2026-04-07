@@ -24,7 +24,7 @@ def search_for_movie():
     for link in soup.find_all('a', class_='poster'):
         title = link.find('h3', class_='poster__title')
         if title:
-            titles_links.append((title.text.strip(), link['href']))
+            titles_links.append((title.text.strip(), BASE_URL + link['href']))
 
     if not titles_links:
         msg = f"No results found for '{keyword}'."
