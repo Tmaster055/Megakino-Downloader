@@ -1,16 +1,17 @@
 import requests
 from bs4 import BeautifulSoup
 import curses
+from .common import BASE_URL
 
 
 def search_for_movie():
     print("Welcome to Megakino-Downloader!")
     keyword = input("What movie/series do you want to watch/download today? ")
-    url = f"https://megakino.ms/index.php?do=search&subaction=search&search_start=0&full_search=0&result_from=1&story={keyword}"
+    url = f"{BASE_URL}/index.php?do=search&subaction=search&search_start=0&full_search=0&result_from=1&story={keyword}"
 
     session = requests.Session()
     try:
-        session.get(f"https://megakino.ms/index.php?yg=token", timeout=15)
+        session.get(f"{BASE_URL}/index.php?yg=token", timeout=15)
         response = session.get(url, timeout=15)
         response.raise_for_status()
     except requests.RequestException as e:

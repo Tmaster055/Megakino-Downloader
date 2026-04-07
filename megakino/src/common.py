@@ -7,16 +7,24 @@ import requests
 
 from bs4 import BeautifulSoup
 from fake_useragent import UserAgent
-from .search import search_for_movie
 
 REDIRECT_PATTERN = re.compile(r"window\.location\.href\s*=\s*'(https://[^/]+/e/\w+)';")
 
 
+def get_latest_domain():
+    response = requests.get("https://raw.githubusercontent.com/Yezun-hikari/new-domain-check/refs/heads/main/monitors/megakino/domain.txt", timeout=15)
+    response.raise_for_status()
+    return f"https://{response.text.strip()}"
+
+BASE_URL = get_latest_domain()
+
+
 def get_html_from_search():
+    from .search import search_for_movie
     url = search_for_movie()
     session = requests.Session()
     try:
-        session.get(f"https://megakino.ms/index.php?yg=token", timeout=15)
+        session.get(f"{BASE_URL}/index.php?yg=token", timeout=15)
         response = session.get(url, timeout=15)
         response.raise_for_status()
     except requests.RequestException as e:
